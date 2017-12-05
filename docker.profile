@@ -27,7 +27,10 @@ function docker-cmd {
 }
 
 function docker-sh {
-    if [[ `$cli exec -it ls /bin/base 2 > /dev/null` != "" ]]
+    res=`$cli exec -it $1 ls /bin/bash`
+    res=`echo $?`
+
+    if [[ "$res" == "0" ]]
     then
         sh=bash
     else
