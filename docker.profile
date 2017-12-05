@@ -3,7 +3,7 @@ cli=/usr/local/bin/docker
 function docker-help {
     usage=`$cli $@`
     usage+="\n"
-    usage+="Addtional customized ommands:\n"
+    usage+="Addtional customized commands:\n"
     usage+="  tags \t listing tags of a image\n"
     usage+="  cmd  \t executing command with default \"-it\" options\n"
     usage+="  sh   \t entering bash shell in a container if bash exists, otherwise sh\n"
