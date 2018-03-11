@@ -7,7 +7,10 @@ function oh_my_profiles_imports {
         source $f
     done
 
-    source $profile
+    if [ -e $profile ]
+    then
+        source $profile
+    fi
 }
 
 function oh_my_profiles_init {
