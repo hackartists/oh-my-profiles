@@ -1,6 +1,6 @@
 cli=/usr/local/bin/docker
 
-function docker_help {
+function docker-help {
     usage=`$cli $@`
     usage+="\n"
     usage+="Addtional customized commands:\n"
@@ -11,7 +11,7 @@ function docker_help {
     echo $usage
 }
 
-function docker-tags {
+function docker_tags {
     img_name=$1
 
     if [[ "$img_name" != *"/"* ]]
@@ -21,7 +21,7 @@ function docker-tags {
     curl --stderr /dev/null https://registry.hub.docker.com/v2/repositories/$img_name/tags/ | jq -r '.results[]["name"]'
 }
 
-function docker-cmd {
+function docker_cmd {
     echo $@
     $cli exec -it $@
 }
@@ -43,11 +43,11 @@ function docker-sh {
 function docker {
     if [[ "$1" == "" ]]
     then
-        docker-help $@
+        docker_help $@
     else
         case $1 in
             tags | cmd | sh)
-                cmd=docker-$1
+                cmd=docker_$1
                 shift
                 $cmd $@
                 ;;
