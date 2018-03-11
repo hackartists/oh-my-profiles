@@ -1,6 +1,6 @@
 cli=/usr/local/bin/docker
 
-function docker-help {
+function docker_help {
     usage=`$cli $@`
     usage+="\n"
     usage+="Addtional customized commands:\n"
