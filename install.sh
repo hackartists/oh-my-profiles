@@ -1,4 +1,3 @@
-#!/bin/bash
 name=.oh-my-profiles
 install_dir=$HOME/$name
 s=`echo $SHELL | sed 's/.*\///g'`
