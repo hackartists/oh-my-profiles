@@ -26,7 +26,7 @@ function docker_cmd {
     $cli exec -it $@
 }
 
-function docker-sh {
+function docker_sh {
     res=`$cli exec -it $1 ls /bin/bash`
     res=`echo $?`
 
