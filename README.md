@@ -56,3 +56,25 @@ Example:
     addbinpath
     exec
 ```
+
+## Git profile
+For managing source codes for developers, git profile added consistent hierarchical directory path of git clone.
+Before you uses this profile, you should set `devel` paramerter. 
+Simply, you can add the devel paramerter belows:
+
+``` shell
+cd path-to-devel
+addpath devel
+```
+
+After adding `devel` environment parameter, you can use `git dev` sub-command.
+
+| Command | Description                    |
+|---------|--------------------------------|
+| `dev`   | Make directory hierarchy and clone a repository |
+
+Example:
+
+``` shell
+git dev url-for-clone
+```
