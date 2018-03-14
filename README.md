@@ -38,6 +38,7 @@ Currently, it supports to add favorite directories by `addpath`.
 | Command | Description                    |
 |---------|--------------------------------|
 | `addpath`   | let you access to the directory by an alias |
+| `addbinpath`   | let you execute executable binaries in the directory |
 
 Example:
 
@@ -45,4 +46,13 @@ Example:
     cd path-to-your-favorite
     addpath my-fav
     cd $my-fav
+    
+    chmod +x path-to-bin/exec
+    addbinpath path-to-bin
+    exec
+    
+    chmod +x path-to-bin2/exec
+    cd path-to-bin2
+    addbinpath
+    exec
 ```
