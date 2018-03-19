@@ -1,7 +1,7 @@
-cli=/usr/local/bin/docker
+docker_cli=/usr/local/bin/docker
 
 function docker_help {
-    usage=`$cli $@`
+    usage=`$docker_cli $@`
     usage+="\n"
     usage+="Addtional customized commands:\n"
     usage+="  tags \t listing tags of a image\n"
@@ -23,11 +23,11 @@ function docker_tags {
 
 function docker_cmd {
     echo $@
-    $cli exec -it $@
+    $docker_cli exec -it $@
 }
 
 function docker_sh {
-    res=`$cli exec -it $1 ls /bin/bash`
+    res=`$docker_cli exec -it $1 ls /bin/bash`
     res=`echo $?`
 
     if [[ "$res" == "0" ]]
@@ -37,7 +37,7 @@ function docker_sh {
         sh=sh
     fi
 
-    $cli exec -it $1 $sh
+    $docker_cli exec -it $1 $sh
 }
 
 function docker {
@@ -52,7 +52,7 @@ function docker {
                 $cmd $@
                 ;;
             * )
-                $cli $@
+                $docker_cli $@
                 ;;
         esac
     fi

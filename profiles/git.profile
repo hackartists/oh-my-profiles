@@ -1,10 +1,10 @@
-cli=/usr/bin/git
+git_cli=/usr/bin/git
 
 function git_dev {
     p=`echo $1 | sed -e "s/http:\/\///g" -e "s/https:\/\///g" -e "s/git\@//g" -e "s/.git//g" -e "s/:/\//g"`
 
     mkdir -p $devel/$p
-    $cli clone $1 $devel/$p
+    $git_cli clone $1 $devel/$p
     cd $devel/$p
 }
 
@@ -16,7 +16,7 @@ function git {
             $cmd $@
             ;;
         * )
-            $cli $@
+            $git_cli $@
             ;;
     esac
 }
