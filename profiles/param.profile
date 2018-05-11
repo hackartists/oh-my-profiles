@@ -17,5 +17,6 @@ function addbinpath {
         p=$1
     fi
 
-    echo "export PATH=$PATH:$p" >> $profile
+    echo "export PATH=\$PATH:$p" >> $profile
+    source $profile
 }
