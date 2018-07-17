@@ -16,6 +16,7 @@ function oh_my_profiles_imports {
 function oh_my_profiles_init {
     oh_my_profiles_imports
     mkdir -p $oh_my_profiles_dir/var
+    fpath=($oh_my_profiles_dir/zsh-completions $fpath)
 }
 
 oh_my_profiles_init
