@@ -78,3 +78,12 @@ Example:
 ``` shell
 git dev url-for-clone
 ```
+
+### CD profile
+For quickly move between directories for development, finding and moving into a development directory feature was added into `cd`.
+`cd` firstly find and move natively; namely, it can work as original `cd` command.
+Secondly, `cd` will find and move the name of a specified directory from `$devel` directory.
+For moving the directory from `$devel`, `cd` will find the name from `$devel` only inside 3-depth.
+
+Natively, we can change directory to `cd $devel/github.com/hyperledger/fabric`.
+This profile make us change directory to only just with `cd fabric`
