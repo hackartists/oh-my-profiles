@@ -31,6 +31,7 @@ Docker profile adds two commands: `cmd` and `tags`.
 | `tags`  | listing all of tags            | 
 | `sh`    | execute a shell(`bash` or `sh`)|
 | `rmf`   | delete images with prefix name |
+| `iso`   | isolate docker image with current directory | 
 
 Example:
 
@@ -40,6 +41,8 @@ docker cmd $cname cat /etc/passwd  # this will execute `cat /etc/passwd` in $cna
 docker sh $cname  # this will simply execute bash of $cname container
 docker tags ubuntu  # this will list tags of ubuntu image
 docker rmf hyperledger   # this will remove all of hyperledger dockers
+docker iso bash     # this will run bash image with isolated current directory
+docker iso -v /host/volume1:/container/dir2 -e CONTAINER_ENV="env" bash  ## also we can use additional options, which ca be used for run options
 ```
 
 ## Parameter tunning profile

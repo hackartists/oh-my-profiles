@@ -8,6 +8,7 @@ function docker_help {
     usage+="  cmd  \t executing command with default \"-it\" options\n"
     usage+="  sh   \t entering bash shell in a container if bash exists, otherwise sh\n"
 	usage+="  rmf  \t remove images with prefix image name\n"
+    usage+="  iso  \t run a container derived by a image and isolate current directory.\n"
 
     echo $usage
 }
@@ -62,13 +63,27 @@ function docker_rmf {
 	docker rmi $(docker images | grep "^$prefix" | awk '{print $3}')
 }
 
+function docker_iso {
+    res=`docker run --rm --workdir /workdir -v $(pwd):/workdir $@ bash`
+    res=`echo $?`
+
+    if [[ "$res" == "0" ]]
+    then
+        sh=bash
+    else
+        sh=sh
+    fi
+
+    docker run --rm -it --workdir /workdir -v $(pwd):/workdir $@ $sh
+}
+
 function docker {
     if [[ "$1" == "" ]]
     then
         docker_help $@
     else
         case $1 in
-            tags | cmd | sh | rmf)
+            tags | cmd | sh | rmf | iso)
                 cmd=docker_$1
                 shift
                 $cmd $@
