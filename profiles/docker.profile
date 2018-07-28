@@ -7,6 +7,7 @@ function docker_help {
     usage+="  tags \t listing tags of a image\n"
     usage+="  cmd  \t executing command with default \"-it\" options\n"
     usage+="  sh   \t entering bash shell in a container if bash exists, otherwise sh\n"
+	usage+="  rmf  \t remove images with prefix image name\n"
 
     echo $usage
 }
@@ -40,13 +41,34 @@ function docker_sh {
     $docker_cli exec -it $1 $sh
 }
 
+function docker_rmf {
+    prefix=$1
+
+	case "$prefix" in
+		"" )
+			echo "Enter the prifix name of images."
+			echo "if you want to remove all of images, use '-all','--all' or '-a' flags"
+			echo "ex) docker rmf --all"
+			exit 1
+			;;
+		"none" )
+			prefix="<none"
+			;;
+		"-all" | "--all" | "-a" )
+			prefix=""
+			;;
+	esac
+
+	docker rmi $(docker images | grep "^$prefix" | awk '{print $3}')
+}
+
 function docker {
     if [[ "$1" == "" ]]
     then
         docker_help $@
     else
         case $1 in
-            tags | cmd | sh)
+            tags | cmd | sh | rmf)
                 cmd=docker_$1
                 shift
                 $cmd $@
