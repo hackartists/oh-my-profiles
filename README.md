@@ -29,6 +29,18 @@ Docker profile adds two commands: `cmd` and `tags`.
 |---------|--------------------------------|
 | `cmd`   | terminal execution in a docker |
 | `tags`  | listing all of tags            | 
+| `sh`    | execute a shell(`bash` or `sh`)|
+| `rmf`   | delete images with prefix name |
+
+Example:
+
+``` shell
+name=container-name
+docker cmd $cname cat /etc/passwd  # this will execute `cat /etc/passwd` in $cname container
+docker sh $cname  # this will simply execute bash of $cname container
+docker tags ubuntu  # this will list tags of ubuntu image
+docker rmf hyperledger   # this will remove all of hyperledger dockers
+```
 
 ## Parameter tunning profile
 
