@@ -9,6 +9,7 @@ function docker_help {
     usage+="  sh   \t entering bash shell in a container if bash exists, otherwise sh\n"
 	usage+="  rmf  \t remove images with prefix image name\n"
     usage+="  iso  \t run a container derived by a image and isolate current directory.\n"
+	usage+="  logf \t monitors logging from the current time\n"
 
     echo $usage
 }
@@ -24,8 +25,12 @@ function docker_tags {
 }
 
 function docker_cmd {
-    echo $@
+   ## echo $@
     $docker_cli exec -it $@
+}
+
+function docker_logf {
+	$docker_cli logs -f --tail 0 $@
 }
 
 function docker_sh {
@@ -83,7 +88,7 @@ function docker {
         docker_help $@
     else
         case $1 in
-            tags | cmd | sh | rmf | iso)
+            tags | cmd | sh | rmf | iso | logf)
                 cmd=docker_$1
                 shift
                 $cmd $@
