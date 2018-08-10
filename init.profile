@@ -32,17 +32,22 @@ function oh_my_profiles_update {
             done
         fi
     fi
-    install_dir=$HOME/.emacs.d
-    cd $install_dir
-    cv=`git rev-parse --short HEAD`
-    ov=`git rev-parse --short origin/master`
 
-    if [ "$cv" != "$ov" ]
+    install_dir=$HOME/.emacs.d
+    if [ -d "$install_dir/.git" ]
     then
-        echo "[Emacs] Would you like to update? [Y/n]: \c"
-        read line
-        if [[ "$line" == Y* ]] || [[ "$line" == y* ]] || [ -z "$line" ]; then
-            git pull
+
+        cd $install_dir
+        cv=`git rev-parse --short HEAD`
+        ov=`git rev-parse --short origin/master`
+
+        if [ "$cv" != "$ov" ]
+        then
+            echo "[Emacs] Would you like to update? [Y/n]: \c"
+            read line
+            if [[ "$line" == Y* ]] || [[ "$line" == y* ]] || [ -z "$line" ]; then
+                git pull
+            fi
         fi
     fi
     cd $dir
