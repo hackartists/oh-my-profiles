@@ -67,6 +67,9 @@ function docker_rmf {
 
 	docker rmi $(docker images | grep "^$prefix" | awk '{print $3}')
 }
+function docker_rme {
+    docker rm -f $(docker ps -a | grep Exited | awk '{print $1}')
+}
 
 function docker_iso {
     res=`docker run --rm --workdir /workdir -v $(pwd):/workdir $@ bash`
@@ -88,7 +91,7 @@ function docker {
         docker_help $@
     else
         case $1 in
-            tags | cmd | sh | rmf | iso | logf)
+            tags | cmd | sh | rmf | iso | logf | rme)
                 cmd=docker_$1
                 shift
                 $cmd $@
