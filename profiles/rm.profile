@@ -11,7 +11,7 @@ function rm {
             else
                 if [ -e ~/.Trash/$p ];
                 then
-                    mv "$p" ~/.Trash/"$p-`date +%Y%m%d%H%M%S`"
+                    mv "$p" ~/.Trash/"${p##*/}-`date +%Y%m%d%H%M%S`"
                 fi
             fi
         done
