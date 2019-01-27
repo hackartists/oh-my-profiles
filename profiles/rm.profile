@@ -1,5 +1,5 @@
 function rm {
-    if [ "$1" == "--trash" ]
+    if [[ "$1" == "--trash" ]]
     then
         /bin/rm -rf ~/.Trash
         mkdir ~/.Trash
