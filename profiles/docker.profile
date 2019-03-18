@@ -65,10 +65,10 @@ function docker_rmf {
 			;;
 	esac
 
-	docker rmi $(docker images | grep "^$prefix" | awk '{print $3}')
+	$docker_cli rmi $(docker images | grep "^$prefix" | awk '{print $3}')
 }
 function docker_rme {
-    docker rm -f $(docker ps -a | grep Exited | awk '{print $1}')
+    $docker_cli rm -f $(docker ps -a | grep Exited | awk '{print $1}')
 }
 
 function docker_iso {
@@ -82,7 +82,7 @@ function docker_iso {
         sh=sh
     fi
 
-    docker run --rm -it --workdir /workdir -v $(pwd):/workdir $@ $sh
+    $docker_cli run --rm -it --workdir /workdir -v $(pwd):/workdir $@ $sh
 }
 
 function docker {
