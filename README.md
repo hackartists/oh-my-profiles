@@ -8,13 +8,13 @@ Oh My Profiles can be installed by running `curl` or `wget`.
 via curl
 
 ``` shell
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwnartist/oh-my-profiles/master/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/hackartists/oh-my-profiles/master/install.sh)"
 ```
 
 via wget
 
 ``` shell
-    sh -c "$(wget https://raw.githubusercontent.com/pwnartist/oh-my-profiles/master/install.sh -O -)"
+    sh -c "$(wget https://raw.githubusercontent.com/hackartists/oh-my-profiles/master/install.sh -O -)"
 ```
 
 ## Profiles
