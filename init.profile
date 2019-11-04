@@ -39,7 +39,7 @@ function oh_my_profiles_update {
 
         cd $install_dir
         cv=`git rev-parse --short HEAD`
-        ov=`git rev-parse --short origin/master`
+        ov=`git rev-parse --short origin/develop`
 
         if [ "$cv" != "$ov" ]
         then
