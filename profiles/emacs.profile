@@ -1,3 +1,3 @@
 function es {
-    emacsclient -n $1
+    emacsclient -s ~/.var/emacs/emacs501/server -n $1
 }
