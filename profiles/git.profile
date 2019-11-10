@@ -5,7 +5,7 @@ function git_dev {
     p=`echo "${u:0:-4}" | sed -e "s/http:\/\///g" -e "s/https:\/\///g" -e "s/git\@//g" -e "s/:/\//g"`
 
     mkdir -p $devel/$p
-    $git_cli clone $1 $devel/$p
+    $git_cli clone --recursive $1 $devel/$p
     cd $devel/$p
 }
 
