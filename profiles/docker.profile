@@ -10,6 +10,7 @@ function docker_help {
 	usage+="  rmf  \t remove images with prefix image name\n"
     usage+="  iso  \t run a container derived by a image and isolate current directory.\n"
 	usage+="  logf \t monitors logging from the current time\n"
+    usage+="  shell\t mount a bash shell for the current directory with a container\n"
 
     echo $usage
 }
@@ -31,6 +32,31 @@ function docker_cmd {
 
 function docker_logf {
 	$docker_cli logs -f --tail 0 $@
+}
+
+function docker_shell {
+    net=dev-net
+    img=ubuntu
+
+    while [ 1=1 ]
+    do
+        case $1 in
+            --network)
+                net=$2
+                shift
+                shift
+                ;;
+            --image)
+                img=$2
+                shift
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    docker run -it --rm -v $(pwd):/workdir --workdir /workdir --network $net $img bash
 }
 
 function docker_sh {
@@ -91,7 +117,7 @@ function docker {
         docker_help $@
     else
         case $1 in
-            tags | cmd | sh | rmf | iso | logf | rme)
+            tags | cmd | sh | rmf | iso | logf | rme | shell)
                 cmd=docker_$1
                 shift
                 $cmd $@
