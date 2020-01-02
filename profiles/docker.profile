@@ -37,8 +37,9 @@ function docker_logf {
 function docker_shell {
     net=dev-net
     img=ubuntu
+    sh=bash
 
-    while [ 1=1 ]
+    while [ "$1" != "" ]
     do
         case $1 in
             --network)
@@ -52,11 +53,12 @@ function docker_shell {
                 shift
                 ;;
             *)
+                sh=$1
                 break
                 ;;
         esac
     done
-    docker run -it --rm -v $(pwd):/workdir --workdir /workdir --network $net $img bash
+    docker run -it --rm -v $(pwd):/workdir --workdir /workdir --network $net $img $sh
 }
 
 function docker_sh {
