@@ -1,19 +1,23 @@
 function rm {
+    local trash_dir=$HOME/.rm-trash
+    mkdir -p $trash_dir
+
     if [[ "$1" == "--trash" ]]
     then
-        /bin/rm -rf ~/.Trash
-        mkdir ~/.Trash
+        /bin/rm -rf $trash_dir
+        mkdir $trash_dir
     else
         for p in "$@";
         do
             # ignore any arguments
             if [[ "$p" = -* ]]; then :
             else
-                if [ -e ~/.Trash/$p ];
+                if [ -e $trash_dir/$p ];
                 then
-                    mv "$p" ~/.Trash/"${p##*/}-`date +%Y%m%d%H%M%S`"
+                    echo $p 
+                    mv "$p" $trash_dir/"${p##*/}-`date +%Y%m%d%H%M%S`"
 				else
-					mv $p ~/.Trash/
+					mv $p $trash_dir/
                 fi
             fi
         done
