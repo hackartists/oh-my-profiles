@@ -47,13 +47,13 @@ function docker_shell {
                 shift
                 shift
                 ;;
-            --image)
-                img=$2
+            --shell)
+                sh=$2
                 shift
                 shift
                 ;;
             *)
-                sh=$1
+                img=$1
                 break
                 ;;
         esac
