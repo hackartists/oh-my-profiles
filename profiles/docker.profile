@@ -58,7 +58,8 @@ function docker_shell {
                 ;;
         esac
     done
-    docker run -it --rm -v $(pwd):/workdir --workdir /workdir --network $net $img $sh
+    name=$(echo $img | sed 's/\//-/g')
+    docker run -it --rm -v $(pwd):/workdir --name $name --workdir /workdir --network $net $img $sh
 }
 
 function docker_sh {
