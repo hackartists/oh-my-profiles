@@ -66,7 +66,8 @@ function docker_shell {
 }
 
 function docker_sh {
-    res=`$docker_cli exec -it $1 ls /bin/bash`
+    tag=`docker ps | grep $1 | awk '{print $1}'`
+    res=`$docker_cli exec -it $tag ls /bin/bash`
     res=`echo $?`
 
     if [[ "$res" == "0" ]]
@@ -76,7 +77,7 @@ function docker_sh {
         sh=sh
     fi
 
-    $docker_cli exec -it $1 $sh
+    $docker_cli exec -it $tag $sh
 }
 
 function docker_rmf {
