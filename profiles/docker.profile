@@ -60,8 +60,9 @@ function docker_shell {
 
     img=$1
     shift
-    
-    name=$(echo $img | sed 's/\//-/g')
+
+    name=$(echo $img | sed 's/\//-/g' | sed 's/:/-/g')
+
     docker run -it --rm -v $(pwd):/workdir --name $name --workdir /workdir --network $net $@ $img $sh
 }
 
