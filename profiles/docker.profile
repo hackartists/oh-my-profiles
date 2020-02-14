@@ -1,5 +1,10 @@
 docker_cli=/usr/local/bin/docker
 
+if [ `uname`="Linux" ]
+then
+    docker_cli=/usr/bin/docker
+fi
+
 function docker_help {
     usage=`$docker_cli $@`
     usage+="\n"
