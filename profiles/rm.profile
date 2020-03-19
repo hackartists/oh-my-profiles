@@ -12,7 +12,7 @@ function rm {
             # ignore any arguments
             if [[ "$p" = -* ]]; then :
             else
-                if [ -e $trash_dir/$p ];
+                if [ -e $trash_dir/$(basename $p) ];
                 then
                     echo $p 
                     mv "$p" $trash_dir/"${p##*/}-`date +%Y%m%d%H%M%S`"

@@ -1,6 +1,7 @@
 docker_cli=/usr/local/bin/docker
+m=`uname`
 
-if [ `uname`="Linux" ]
+if [ "$m" = "Linux" ]
 then
     docker_cli=/usr/bin/docker
 fi
