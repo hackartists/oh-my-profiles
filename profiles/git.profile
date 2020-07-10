@@ -2,7 +2,7 @@ git_cli=/usr/bin/git
 
 function git_dev {
     u=$1
-    p=`echo "${u:0:-4}" | sed -e "s/http:\/\///g" -e "s/https:\/\///g" -e "s/git\@//g" -e "s/:/\//g"`
+    p=`echo "${u:0:-4}" | sed -e "s/http:\/\///g" -e "s/https:\/\///g" -e "s/git\@//g" -e "s/-.*[a-z]:/\//g" -e "s/:/\//g"`
 
     mkdir -p $devel/$p
     $git_cli clone --recursive $1 $devel/$p
