@@ -8,8 +8,8 @@ function loop {
 
     while [ 1=1 ]
     do
-        res=`$@`
-        echo "$res"
+        $@
+        echo ""
         echo "Completed: $i tries"
         i=$((i+1))
         sleep $interval

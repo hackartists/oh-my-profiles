@@ -23,7 +23,7 @@ function oh_my_profiles_update {
 
     if [ "$cv" != "$ov" ]
     then
-        echo "[Oh My Profile] Would you like to update? [Y/n]: \c"
+        echo "[Oh My Profile:$cv/$ov] Would you like to update? [Y/n]: \c"
         read line
         if [[ "$line" == Y* ]] || [[ "$line" == y* ]] || [ -z "$line" ]; then
             git pull
