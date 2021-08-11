@@ -62,6 +62,9 @@ function kas_db {
 function kas_ctx {
     local env=$1
    case $env in
+       dev )
+           cn=service-dev
+           ;;
        qa-2 )
            cn=service-qa-common
            ;;
