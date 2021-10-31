@@ -1,5 +1,26 @@
 function kas_help {
     echo "KAS Utilities"
+    echo ""
+    echo "Commands:"
+    echo "db executes SQL which like EKS pod does"
+    echo "  ex) kas db qa-2 $SQL_URL"
+    echo ""
+    echo "vpn manages k8s VPN connection with $HOME/kubeVPN.ovpn"
+    echo "  open connects into k8s"
+    echo "  close disconnects from k8s"
+    echo "  ex) kas vpn {open|close}"
+    echo ""
+    echo "okta manages OKTA profile"
+    echo "  create creates a new okta profile"
+    echo "  update updates a okta profile"
+    echo "  ex) kas okta {create|update}"
+    echo ""
+    echo "ctx switch k8s context"
+    echo "  ex) kas ctx {dev|qa-2|perf}"
+    echo ""
+    echo "config downloads service confines from k8s"
+    echo "  ex) kas config $DEPLOYMENT_NAME"
+    echo ""
 }
 
 function kas_db_connect {
@@ -66,7 +87,7 @@ function kas_ctx {
            cn=service-dev
            ;;
        qa-2 )
-           cn=service-qa-common
+           cn=service-qa
            ;;
        perf )
            cn=service-qa-perf
@@ -322,13 +343,36 @@ function kas_test {
     done
 }
 
+function kas_secure_start {
+    docker run -d --restart always --network host --name fireeye-xagt hackartist/fireeye-xagt /opt/fireeye/bin/xagt -i /root/agent_config.json
+}
+
+function kas_secure_end {
+    docker rm -f fireeye-xagt
+}
+
+function kas_action {
+    if [[ "$1" == "" ]]
+    then
+        kas_help $@
+    else
+        case $1 in
+            start|end)
+                cmd=$0_$1
+                shift
+                $cmd $@
+                ;;
+        esac
+    fi
+}
+
 function kas {
     if [[ "$1" == "" ]]
     then
         kas_help $@
     else
         case $1 in
-            help | okta | vpn | config | ctx | db | action | test)
+            help | okta | vpn | config | ctx | db | action | test | secure)
                 cmd=$0_$1
                 shift
                 $cmd $@
