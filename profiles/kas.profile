@@ -5,7 +5,7 @@ function kas_help {
     echo "db executes SQL which like EKS pod does"
     echo "  ex) kas db qa-2 $SQL_URL"
     echo ""
-    echo "vpn manages k8s VPN connection with $HOME/kubeVPN.ovpn"
+    echo 'vpn manages k8s VPN connection with $HOME/kubeVPN.ovpn'
     echo "  open connects into k8s"
     echo "  close disconnects from k8s"
     echo "  ex) kas vpn {open|close}"
