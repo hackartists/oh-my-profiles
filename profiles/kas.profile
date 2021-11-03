@@ -21,6 +21,10 @@ function kas_help {
     echo "config downloads service confines from k8s"
     echo "  ex) kas config $DEPLOYMENT_NAME"
     echo ""
+    echo "secure manages vaccine tools"
+    echo "  start makes and runs xagt docker"
+    echo "  end removes the docker"
+    echo "  ex) kas secure start"
 }
 
 function kas_db_connect {
@@ -351,7 +355,7 @@ function kas_secure_end {
     docker rm -f fireeye-xagt
 }
 
-function kas_action {
+function kas_secure {
     if [[ "$1" == "" ]]
     then
         kas_help $@
