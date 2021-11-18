@@ -25,6 +25,9 @@ function kas_help {
     echo "  start makes and runs xagt docker"
     echo "  end removes the docker"
     echo "  ex) kas secure start"
+    echo ""
+    echo "kafka open kafka management tool"
+    echo "  you can switch environment through context"
 }
 
 function kas_db_connect {
@@ -370,13 +373,18 @@ function kas_secure {
     fi
 }
 
+function kas_kafka {
+    echo "http://localhost:9002"
+    kubectl port-forward -n cmak service/kowl 9002:80 
+}
+
 function kas {
     if [[ "$1" == "" ]]
     then
         kas_help $@
     else
         case $1 in
-            help | okta | vpn | config | ctx | db | action | test | secure)
+            help | okta | vpn | config | ctx | db | action | test | secure | kafka)
                 cmd=$0_$1
                 shift
                 $cmd $@
