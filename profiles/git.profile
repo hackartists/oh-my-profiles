@@ -9,6 +9,10 @@ function git_dev {
     cd $devel/$p
 }
 
+function git_hub {
+    git_dev git@github.com:$1.git
+}
+
 function git_gx {
     p=github.com/ground-x/$1
 
@@ -19,7 +23,7 @@ function git_gx {
 
 function git {
     case $1 in
-        dev | gx )
+        dev | gx | hub)
             cmd=git_$1
             shift
             $cmd $@
