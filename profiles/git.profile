@@ -13,23 +13,14 @@ function git_hub {
     git_dev git@github.com:$1.git
 }
 
-function git_gx {
-    p=github.com/ground-x/$1
-
-    mkdir -p $devel/$p
-    $git_cli clone --recursive git@github.com:ground-x/$1 $devel/$p
-    cd $devel/$p
-}
-
 function git {
-    case $1 in
-        dev | gx | hub)
-            cmd=git_$1
-            shift
-            $cmd $@
-            ;;
-        * )
-            $git_cli $@
-            ;;
-    esac
+    cmd=git_$1
+    chk=`which $cmd`
+    if [ "$?" != "0" ]
+    then
+        $git_cli $@
+    else
+        shift
+        $cmd $@
+    fi
 }
