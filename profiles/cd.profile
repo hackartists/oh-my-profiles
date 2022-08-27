@@ -45,13 +45,17 @@ function cd {
 
 function _compcd_()
 {
-    local cmd="${1##*/}"
     local word=${COMP_WORDS[COMP_CWORD]}
     local line=${COMP_LINE}
-    local xpat='!*.foo'
+    local dir=${2%/*}
 
-    COMPREPLY=(`find $devel -maxdepth 3 -printf '%P\n'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/([^\/]+)\///m'`)
-    echo $COMPREPLY > res.log
+    if [ -d $dir ]
+    then
+        local ret=`ls -ap1 $dir | tail -n +3 | sed -E "s|^|$dir/|m"`
+        COMPREPLY=(${ret[@]/#/$dir\/})
+    else
+        COMPREPLY=(`find $devel -maxdepth 3 -printf '%P\n'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `find . -maxdepth 1 -printf '%P\n'`)
+    fi
 }
 
-complete -F _compcd_ cd
+complete -o nospace -F _compcd_ cd
