@@ -42,3 +42,16 @@ function cd {
     echo "cd: no such file or directory: $cd_basedir" > /dev/stderr
     return 1
 }
+
+function _compcd_()
+{
+    local cmd="${1##*/}"
+    local word=${COMP_WORDS[COMP_CWORD]}
+    local line=${COMP_LINE}
+    local xpat='!*.foo'
+
+    COMPREPLY=(`find $devel -maxdepth 3 -printf '%P\n'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/([^\/]+)\///m'`)
+    echo $COMPREPLY > res.log
+}
+
+complete -F _compcd_ cd
