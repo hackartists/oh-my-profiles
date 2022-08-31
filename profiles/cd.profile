@@ -48,13 +48,20 @@ function _compcd_()
     local word=${COMP_WORDS[COMP_CWORD]}
     local line=${COMP_LINE}
     local dir=${2%/*}
+    local pattern_dir=`find $devel -type d -maxdepth 3 -printf '%P\n'`
+    echo $pattern_dir
+
+    if [ -d $2 ]
+    then
+        local dir=$2
+    fi
 
     if [ -d $dir ]
     then
         local ret=`ls -ap1 $dir | tail -n +3 | sed -E "s|^|$dir/|m"`
         COMPREPLY=(${ret[@]/#/$dir\/})
     else
-        COMPREPLY=(`find $devel -maxdepth 3 -printf '%P\n'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `find . -maxdepth 1 -printf '%P\n'`)
+        COMPREPLY=(`find $devel -maxdepth 3 -type d -printf '%P\n'` `find $devel  -maxdepth 3 -type d -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -type d -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `find . -maxdepth 1 -printf '%P\n'`)
     fi
 }
 
