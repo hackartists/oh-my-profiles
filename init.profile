@@ -1,5 +1,6 @@
 oh_my_profiles_dir=$HOME/.oh-my-profiles
 profile=$oh_my_profiles_dir/var/profile
+confdir=$HOME/.config/oh-my-profiles
 
 function oh_my_profiles_imports {
     for f in $oh_my_profiles_dir/profiles/*.profile;
@@ -10,6 +11,14 @@ function oh_my_profiles_imports {
     if [ -e $profile ]
     then
         source $profile
+    fi
+
+    if [ -d $confdir ]
+    then
+        for f in $confdir/*.profile;
+        do
+            source $f
+        done
     fi
 }
 
