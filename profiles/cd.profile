@@ -53,7 +53,7 @@ function _compcd_()
     then
         COMPREPLY=`ls -d $dir/*/`
     else
-        COMPREPLY=(`find $devel -maxdepth 3 -type d -printf '%P\n'` `find $devel  -maxdepth 3 -type d -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -type d -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `ls -d */`)
+        COMPREPLY=(`find $devel -maxdepth 3 -type d -printf '%P\n'` `find $devel  -maxdepth 3 -type d -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -type d -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `ls -d */ 2>/dev/null`)
     fi
 }
 
