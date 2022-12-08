@@ -64,9 +64,18 @@ function oh_my_profiles_update {
     cd $dir
 }
 
+function oh_my_profiles_setup_devel {
+    if [ "$devel" == "" ]
+    then
+        export devel=$HOME/data/devel
+        mkdir -p $devel
+    fi
+}
+
 function oh_my_profiles_init {
     oh_my_profiles_update
     oh_my_profiles_imports
+    oh_my_profiles_setup_devel
     mkdir -p $oh_my_profiles_dir/var
     fpath=($oh_my_profiles_dir/zsh-completions $fpath)
 }
