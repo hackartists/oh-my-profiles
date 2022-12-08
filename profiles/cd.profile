@@ -1,60 +1,8 @@
 #!/bin/bash
+export CDPATH=.
 
-function cd {
-    if [ "$1" = "" ]
-    then
-        pushd ~ > /dev/null
-        return 0
-    fi
+while IFS= read -r line
+do
+    export CDPATH=$CDPATH:$line
+done <<< $(find $devel -maxdepth 3 -type d)
 
-    cd_test=`pushd $1 2> /dev/null`
-    cd_test=`echo $?`
-
-    if [ $cd_test = 0 ]
-    then
-        pushd $1 > /dev/null
-        return 0
-    fi
-
-    cd_dirs=(`echo $1 | sed 's|/| | '`)
-    cd_basedir=${cd_dirs[1]}
-    cd_subdir=${cd_dirs[2]}
-    cd_d=`find $devel -maxdepth 3 -type d -name "$cd_basedir" -print -quit`
-
-    if [ "$cd_d" != "" ]
-    then
-        if [ "$cd_subdir" != "" ]
-        then
-            cd_test=`pushd $cd_d/$cd_subdir 2> /dev/null`
-            cd_test=`echo $?`
-            if [ "$cd_test" != 0 ]
-            then
-                echo "cd: no such file or directory($cd_subdir) from $cd_basedir" > /dev/stderr
-                return 2
-            fi
-            cd_d=$cd_d/$cd_subdir
-        fi
-        pushd $cd_d > /dev/null
-
-        return 0
-    fi
-
-    echo "cd: no such file or directory: $cd_basedir" > /dev/stderr
-    return 1
-}
-
-function _compcd_()
-{
-    local word=${COMP_WORDS[COMP_CWORD]}
-    local line=${COMP_LINE}
-    local dir=${2%/*}
-
-    if [ -d $dir ]
-    then
-        COMPREPLY=`ls -d $dir/*/`
-    else
-        COMPREPLY=(`find $devel -maxdepth 3 -type d -printf '%P\n'` `find $devel  -maxdepth 3 -type d -printf '%P\n' | sed -E 's/(.+?)\///m'` `find $devel -maxdepth 3 -type d -printf '%P\n' | sed -E 's/([^\/]+)\///m'` `ls -d */ 2>/dev/null`)
-    fi
-}
-
-complete -o nospace -F _compcd_ cd
