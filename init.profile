@@ -65,9 +65,9 @@ function oh_my_profiles_update {
 }
 
 function oh_my_profiles_setup_devel {
-    if [ "$devel" == "" ]
+    if [[ "$devel" == "" ]]
     then
-        export devel=$HOME/data/devel
+        devel=$HOME/data/devel
         mkdir -p $devel
     fi
 }
