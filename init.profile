@@ -3,22 +3,23 @@ profile=$oh_my_profiles_dir/var/profile
 confdir=$HOME/.config/oh-my-profiles
 
 function oh_my_profiles_imports {
-    for f in $oh_my_profiles_dir/profiles/*.profile;
-    do
-        source $f
-    done
-
-    if [ -e $profile ]
-    then
-        source $profile
-    fi
-
     if [ -d $confdir ]
     then
         for f in $confdir/*.profile;
         do
             source $f
         done
+    fi
+
+    for f in $oh_my_profiles_dir/profiles/*.profile;
+    do
+        echo "$f"
+        source $f
+    done
+
+    if [ -e $profile ]
+    then
+        source $profile
     fi
 }
 
@@ -74,9 +75,8 @@ function oh_my_profiles_setup_devel {
 
 function oh_my_profiles_init {
     oh_my_profiles_update
-    oh_my_profiles_imports
     oh_my_profiles_setup_devel
-    mkdir -p $oh_my_profiles_dir/var
+    oh_my_profiles_imports
     fpath=($oh_my_profiles_dir/zsh-completions $fpath)
 }
 
