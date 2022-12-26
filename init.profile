@@ -13,7 +13,6 @@ function oh_my_profiles_imports {
 
     for f in $oh_my_profiles_dir/profiles/*.profile;
     do
-        echo "$f"
         source $f
     done
 
