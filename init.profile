@@ -67,12 +67,14 @@ function oh_my_profiles_update {
 function oh_my_profiles_setup_devel {
     if [[ "$devel" == "" ]]
     then
-        devel=$HOME/data/devel
+        export devel=$HOME/data/devel
         mkdir -p $devel
     fi
 }
 
 function oh_my_profiles_init {
+    mkdir -p $oh_my_profiles_dir/var
+
     oh_my_profiles_update
     oh_my_profiles_setup_devel
     oh_my_profiles_imports
