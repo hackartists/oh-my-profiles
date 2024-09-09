@@ -69,7 +69,7 @@ function docker_shell {
 
     name=$(echo $img | sed 's/\//-/g' | sed 's/:/-/g')
 
-    docker run -it --rm -v $(pwd):/workdir --name $name --workdir /workdir --network $net $@ $img $sh
+    docker run -it --rm -v $(pwd):/workdir -v /var/run/docker.sock:/var/run/docker.sock --name $name --workdir /workdir --network host $img $sh
 }
 
 function docker_sh {
