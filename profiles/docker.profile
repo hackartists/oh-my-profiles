@@ -44,6 +44,7 @@ function docker_shell {
     net=dev-net
     img=ubuntu
     sh=bash
+    wd=/workdir
 
     while [ "$1" != "" ]
     do
@@ -58,18 +59,25 @@ function docker_shell {
                 shift
                 shift
                 ;;
+            --workdir)
+                wd=$2
+                shift
+                shift
+                ;;
+            --image)
+                img=$2
+                shift
+                shift
+                ;;
             *)
                 break
                 ;;
         esac
     done
 
-    img=$1
-    shift
-
     name=$(echo $img | sed 's/\//-/g' | sed 's/:/-/g')
 
-    docker run -it --rm -v $(pwd):/workdir -v /var/run/docker.sock:/var/run/docker.sock --name $name --workdir /workdir --network host $img $sh
+    docker run -it --rm -v $(pwd):$wd -v /var/run/docker.sock:/var/run/docker.sock --name $name --workdir $wd --network host $img $sh
 }
 
 function docker_sh {
